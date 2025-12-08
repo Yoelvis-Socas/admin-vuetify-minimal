@@ -1,36 +1,51 @@
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
+// src/router/index.js
 
-// Composables
+import { setupLayouts } from 'virtual:generated-layouts' // <--- 1. IMPORTANTE: Traemos la magia de los layouts
 import { createRouter, createWebHistory } from 'vue-router'
-import { setupLayouts } from 'virtual:generated-layouts'
-import { routes } from 'vue-router/auto-routes'
+
+// Definimos tus rutas manuales
+const manualRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/pages/login.vue'),
+    meta: { requiresAuth: false, layout: 'blank' }, // layout blank para login
+  },
+  {
+    path: '/',
+    component: () => import('@/pages/index.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/users',
+    component: () => import('@/pages/users.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/settings',
+    component: () => import('@/pages/settings.vue'),
+    meta: { requiresAuth: true },
+  },
+]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: setupLayouts(routes),
+  history: createWebHistory(process.env.BASE_URL),
+  // 2. IMPORTANTE: Aquí envolvemos las rutas con setupLayouts
+  // Esto le dice: "Antes de usar estas rutas, ponles el layout default alrededor"
+  routes: setupLayouts(manualRoutes),
 })
 
-// Workaround for https://github.com/vitejs/vite/issues/11804
-router.onError((err, to) => {
-  if (err?.message?.includes?.('Failed to fetch dynamically imported module')) {
-    if (localStorage.getItem('vuetify:dynamic-reload')) {
-      console.error('Dynamic import error, reloading page did not fix it', err)
-    } else {
-      console.log('Reloading page to fix dynamic import error')
-      localStorage.setItem('vuetify:dynamic-reload', 'true')
-      location.assign(to.fullPath)
-    }
+// --- EL GUARDIA DE SEGURIDAD (Esto déjalo igual, funcionaba bien) ---
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  const isAuthenticated = !!token
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (to.path === '/login' && isAuthenticated) {
+    next('/')
   } else {
-    console.error(err)
+    next()
   }
-})
-
-router.isReady().then(() => {
-  localStorage.removeItem('vuetify:dynamic-reload')
 })
 
 export default router

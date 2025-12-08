@@ -1,4 +1,6 @@
-// Utilities
+// src/stores/index.js
 import { createPinia } from 'pinia'
 
-export default createPinia()
+const pinia = createPinia()
+
+export default pinia
