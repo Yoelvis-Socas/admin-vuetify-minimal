@@ -30,17 +30,322 @@ body {
 /* Sombra suave para modo CLARO */
 .v-theme--lightTheme .v-card--shadow {
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil */
 }
 
 /* Sombra y borde para modo OSCURO - CRUCIAL PARA QUE NO SE VEA PLANO */
 .v-theme--darkTheme .v-card--shadow {
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.3) !important; /* Sombra más fuerte */
-  border: 1px solid rgba(255,255,255,0.05); /* Borde sutil para separar del fondo */
+
   background-color: #1E293B !important; /* Asegurar color surface */
 }
 
 /* scrollbar oscuro */
 .v-theme--darkTheme ::-webkit-scrollbar-thumb {
   background: #334155;
+}
+
+/*------------------------- Custom components styles -------------------------*/
+.global-snackbar{
+  margin-top: 84px !important;
+}
+
+/*------------------------------- Flexbox -------------------------------*/
+
+.d-flex{
+  display: flex;
+}
+
+.d-inline-flex{
+  display: inline-flex;
+}
+
+.direction-row{
+  flex-direction: row;
+}
+
+.direction-row-reverse{
+  flex-direction: row-reverse;
+}
+
+.direction-column{
+  flex-direction: column;
+}
+
+.direction-column-reverse{
+  flex-direction: column-reverse;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+.flex-wrap-reverse{
+  flex-wrap: wrap-reverse;
+}
+
+.flex-grow-0{
+  flex-grow: 0;
+}
+
+.flex-grow-1{
+  flex-grow: 1;
+}
+
+.flex-grow-2{
+  flex-grow: 2;
+}
+
+.flex-grow-3{
+  flex-grow: 3;
+}
+
+.flex-shrink-0{
+  flex-shrink: 0;
+}
+
+.flex-shrink-1{
+  flex-shrink: 1;
+}
+
+.flex-shrink-2{
+  flex-shrink: 2;
+}
+
+.flex-shrink-3{
+  flex-shrink: 3;
+}
+
+.flex-basis-auto{
+  flex-basis: auto;
+}
+
+.flex-basis-0{
+  flex-basis: 0;
+}
+
+.flex-nowrap{
+  flex-wrap: nowrap;
+}
+
+.jc-start{
+  justify-content: flex-start;
+}
+
+.jc-end{
+  justify-content: flex-end;
+}
+
+.jc-center{
+  justify-content: center;
+}
+
+.jc-between{
+  justify-content: space-between;
+}
+
+.jc-evenly{
+  justify-content: space-evenly;
+}
+
+.jc-around{
+  justify-content: space-around;
+}
+
+.ji-start{
+  justify-items: flex-start;
+}
+
+.ji-end{
+  justify-items: flex-end;
+}
+
+.ji-center{
+  justify-items: center;
+}
+
+.ji-between{
+
+}
+
+.ji-evenly{
+
+}
+
+.ji-around{
+
+}
+
+.justify-self-start{
+  justify-self: flex-start;
+}
+
+.justify-self-end{
+  justify-self: flex-end;
+}
+
+.justify-self-center{
+  justify-self: center;
+}
+
+.ai-start{
+  align-items: flex-start;
+}
+
+.ai-end{
+  align-items: flex-end;
+}
+
+.ai-center{
+  align-items: center;
+}
+
+.ai-baseline{
+  align-items: baseline;
+}
+
+.ai-stretch{
+  align-items: stretch;
+}
+
+.ac-start{
+  align-content: flex-start;
+}
+
+.ac-end{
+  align-content: flex-end;
+}
+
+.ac-center{
+  align-content: center !important;
+}
+
+.ac-between{
+  align-content: space-between;
+}
+
+.ac-evenly{
+  align-content: space-evenly;
+}
+
+.ac-around{
+  align-content: space-around;
+}
+
+.ac-stretch{
+  align-content: stretch;
+}
+
+.align-self-start{
+  align-self: flex-start;
+}
+
+.align-self-end{
+  align-self: flex-end;
+}
+
+
+
+/*------------------------------- Typography -------------------------------*/
+.fs-12{
+  font-size: 12px!important;
+}
+
+.fs-13{
+  font-size: 13px!important;
+}
+
+.fs-14{
+  font-size: 14px!important;
+}
+
+.fs-15{
+  font-size: 15px!important;
+}
+
+.fs-16{
+  font-size: 16px!important;
+}
+
+.fs-17{
+  font-size: 17px!important;
+}
+
+.font-size-18{
+  font-size: 18px!important;
+}
+
+.fs-19{
+  font-size: 19px!important;
+}
+
+.fs-20{
+  font-size: 20px!important;
+}
+
+.fs-21{
+  font-size: 21px!important;
+}
+
+.fs-22{
+  font-size: 22px!important;
+}
+
+.fs-23{
+  font-size: 23px!important;
+}
+
+.fs-24{
+  font-size: 24px!important;
+}
+
+.fs-25{
+  font-size: 25px!important;
+}
+
+.fs-26{
+  font-size: 26px!important;
+}
+
+.fs-30{
+  font-size: 30px!important;
+}
+
+.fw-ultra-bold{
+  font-weight: 900;
+}
+
+.fw-extra-bold{
+  font-weight: 800;
+}
+
+.fw-bold{
+  font-weight: 700;
+}
+
+.fw-semibold{
+  font-weight: 600;
+}
+
+.fw-regular{
+  font-weight: 500;
+}
+
+.fw-normal{
+  font-weight: 400;
+}
+
+.fw-light{
+  font-weight: 300;
+}
+
+.line-height-1{
+  line-height: 1;
+}
+
+.line-height-1-1{
+  line-height: 1.1;
+}
+
+.line-height-1-2{
+  line-height: 1.2;
 }

@@ -1,18 +1,19 @@
 <script setup>
   import { computed } from 'vue'
-  import { useDisplay } from 'vuetify'
 
-  // Definimos props para recibir el estado del drawer desde el padre
   const props = defineProps({
     drawer: {
       type: Boolean,
       required: true,
     },
+    rail: {
+      type: Boolean,
+      default: false,
+    },
   })
 
   const emit = defineEmits(['update:drawer'])
 
-  // Proxy para manejar v-model con props
   const drawerModel = computed({
     get: () => props.drawer,
     set: val => emit('update:drawer', val),
@@ -29,17 +30,11 @@
       icon: 'mdi-account-group-outline',
       to: '/users',
     },
-    { type: 'divider' }, // Separador visual
-    { type: 'subheader', title: 'OTROS' },
+    { type: 'divider' },
     {
       title: 'Configuración',
       icon: 'mdi-cog-outline',
       to: '/settings',
-    },
-    {
-      title: 'Login (Demo)',
-      icon: 'mdi-login',
-      to: '/login',
     },
   ]
 </script>
@@ -50,39 +45,54 @@
     class="app-navigation"
     color="surface"
     elevation="0"
-    floating
+    :rail="rail"
+    rail-width="75"
     width="260"
   >
-    <!-- Logo Area -->
-    <div class="px-6 py-5 d-flex align-center">
+    <!--
+      Logo Area:
+      Usamos :class condicional.
+      Si es rail (mini), usamos 'px-2' y centramos.
+      Si es normal, usamos 'px-6'.
+    -->
+    <div
+      class="d-flex align-center py-5 transition-swing"
+      :class="rail ? 'justify-center px-2' : 'px-6'"
+    >
       <v-img
         alt="Logo"
-        class="mr-3"
-        max-width="40"
+        class="transition-swing"
+        :class="rail ? '' : 'mr-3'"
+        :max-width="rail ? 32 : 40"
         src="@/assets/logo.svg"
       />
-      <span class="text-h6 font-weight-bold text-primary">VueAdminMinimal</span>
+
+      <!-- El texto solo se renderiza si NO estamos en modo rail -->
+      <span
+        v-if="!rail"
+        class="text-h6 font-weight-bold text-primary text-truncate"
+      >
+        VueAdminMinimal
+      </span>
     </div>
 
     <v-divider class="mb-2 border-opacity-50" />
 
-    <!-- Menu List -->
     <v-list class="pa-2">
       <template v-for="(item, i) in menuItems" :key="i">
-        <!-- Subheader -->
+
+        <!-- Subheader: Se oculta en modo Rail -->
         <v-list-subheader
-          v-if="item.type === 'subheader'"
+          v-if="item.type === 'subheader' && !rail"
           class="text-uppercase text-caption font-weight-bold text-medium-emphasis mt-4 mb-2"
         >
           {{ item.title }}
         </v-list-subheader>
 
-        <!-- Divider -->
         <v-divider v-else-if="item.type === 'divider'" class="my-2" />
 
-        <!-- Menu Item -->
         <v-list-item
-          v-else
+          v-else-if="item.title"
           active-class="nav-item-active"
           class="mb-1"
           color="primary"
@@ -97,24 +107,21 @@
       </template>
     </v-list>
 
-    <!-- Upgrade Box (Típico truco de marketing en templates gratis) -->
-    <template #append>
+    <!-- Footer: Se oculta en modo Rail -->
+    <template v-if="!rail" #append>
       <div class="pa-4">
         <v-card class="pa-4" color="primary" rounded="lg">
           <div class="text-subtitle-2 font-weight-bold text-white mb-1">
-            VuePro Premium
-          </div>
-          <div class="text-caption text-white mb-3 opacity-80">
-            Obtén acceso a más componentes y soporte.
+            Premium
           </div>
           <v-btn
             block
-            class="text-primary"
+            class="text-primary font-weight-bold mt-2"
             color="white"
             size="small"
             variant="flat"
           >
-            Mejorar Plan
+            Ver Planes
           </v-btn>
         </v-card>
       </div>
@@ -123,7 +130,11 @@
 </template>
 
 <style lang="scss" scoped>
-/* Un toque sutil: línea lateral en el item activo */
+/* Transiciones suaves para los cambios de tamaño */
+.transition-swing {
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
 .nav-item-active::before {
   content: '';
   position: absolute;
@@ -135,6 +146,5 @@
   background-color: rgb(var(--v-theme-primary));
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  opacity: 1;
 }
 </style>

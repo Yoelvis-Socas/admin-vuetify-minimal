@@ -13,28 +13,28 @@
   <router-view />
 
   <!-- El Snackbar vive fuera del layout, flotando -->
-  <GlobalSnackbar />
+  <GlobalSnackbar class="global-snackbar" />
 </template>
 
 <style lang="scss">
 /* --- ESTILOS GLOBALES --- */
 
 /* Aseguramos que el scroll funcione bien */
-html {
-  overflow-y: auto;
+html, body {
+  overflow: hidden !important; /* Nadie scrollea aquí */
+  height: 100%;
+  margin: 0;
 }
 
 /* Sombra suave para modo CLARO */
 .v-theme--lightTheme .v-card--shadow {
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Sombra y borde para modo OSCURO */
 /* Usamos bordes sutiles porque las sombras no se ven bien en fondos oscuros */
 .v-theme--darkTheme .v-card--shadow {
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.3) !important;
-  border: 1px solid rgba(255,255,255,0.05);
   background-color: #1E293B !important;
 }
 
